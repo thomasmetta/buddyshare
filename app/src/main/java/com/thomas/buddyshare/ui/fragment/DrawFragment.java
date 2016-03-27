@@ -151,7 +151,19 @@ public class DrawFragment extends Fragment implements View.OnClickListener {
 
                 break;
 
-          
+            case R.id.redbutton:
+                red();
+                Log.v(TAG, "red");
+                break;
+
+            case R.id.greenbutton:
+                green();
+                Log.v(TAG, "green");
+                break;
+            case R.id.bluebutton:
+                blue();
+                Log.v(TAG, "blue");
+                break;
         }
     }
 
@@ -389,6 +401,83 @@ public class DrawFragment extends Fragment implements View.OnClickListener {
         startActivityForResult(photoPickerIntent, REQUEST_CODE_GALLERY);
     }
 
+    public void red() {
 
+        if (mPhoto != null) {
+            operation = Bitmap.createBitmap(mPhoto.getWidth(), mPhoto.getHeight(), mPhoto.getConfig());
+            double red = 0.33;
+            double green = 0.59;
+            double blue = 0.11;
+
+            for (int i = 0; i < mPhoto.getWidth(); i++) {
+                for (int j = 0; j < mPhoto.getHeight(); j++) {
+                    int p = mPhoto.getPixel(i, j);
+                    int r = Color.red(p);
+                    int g = Color.green(p);
+                    int b = Color.blue(p);
+                    int alpha = Color.alpha(p);
+
+                    r = r + 150;
+                    g = 0;
+                    b = 0;
+                    alpha = 0;
+                    operation.setPixel(i, j, Color.argb(Color.alpha(p), r, g, b));
+                }
+            }
+            mPhotoView.setImageBitmap(operation);
+
+        }
+    }
+    public void green() {
+
+        if (mPhoto != null) {
+            operation = Bitmap.createBitmap(mPhoto.getWidth(), mPhoto.getHeight(), mPhoto.getConfig());
+
+            for (int i = 0; i < mPhoto.getWidth(); i++) {
+                for (int j = 0; j < mPhoto.getHeight(); j++) {
+                    int p = mPhoto.getPixel(i, j);
+                    int r = Color.red(p);
+                    int g = Color.green(p);
+                    int b = Color.blue(p);
+                    int alpha = Color.alpha(p);
+
+                    r = 0;
+                    g = g + 150;
+                    b = 0;
+                    alpha = 0;
+                    operation.setPixel(i, j, Color.argb(Color.alpha(p), r, g, b));
+                }
+            }
+            mPhotoView.setImageBitmap(operation);
+        }
+
+
+    }
+
+
+    public void blue() {
+
+        if (mPhoto != null) {
+            operation = Bitmap.createBitmap(mPhoto.getWidth(), mPhoto.getHeight(), mPhoto.getConfig());
+
+            for (int i = 0; i < mPhoto.getWidth(); i++) {
+                for (int j = 0; j < mPhoto.getHeight(); j++) {
+                    int p = mPhoto.getPixel(i, j);
+                    int r = Color.red(p);
+                    int g = Color.green(p);
+                    int b = Color.blue(p);
+                    int alpha = Color.alpha(p);
+
+                    r = 0;
+                    g = 0;
+                    b = b + 150;
+                    alpha = 0;
+                    operation.setPixel(i, j, Color.argb(Color.alpha(p), r, g, b));
+                }
+            }
+            mPhotoView.setImageBitmap(operation);
+        }
+
+    }
 
 }
